@@ -5,6 +5,14 @@ const PORT = process.env.PORT || 5050
 var startPage = "index.html";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+const { register, login } = require('./utils/UserUtil')
+app.post('/register', register);
+app.post('/login', login);
+
+const { addResource } = require('./utils/ResourceUtil')
+app.post('/add-resource', addResource)
+
 app.use(express.static("./public"));
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
