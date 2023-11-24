@@ -10,8 +10,10 @@ const { register, login } = require('./utils/UserUtil')
 app.post('/register', register);
 app.post('/login', login);
 
-const { addResource } = require('./utils/ResourceUtil')
-app.post('/add-resource', addResource)
+const { addResource,viewResources  } = require('./utils/ResourceUtil')
+app.post('/add-resource', addResource);
+app.get('/view-resources', viewResources);
+
 
 app.use(express.static("./public"));
 app.get('/', (req, res) => {
