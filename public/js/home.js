@@ -4,8 +4,10 @@ function addResource() {
     jsonData.name = document.getElementById("name").value;
     jsonData.location = document.getElementById("location").value;
     jsonData.description = document.getElementById("description").value;
+    jsonData.description = document.getElementById("rating").value;
+
     jsonData.owner = sessionStorage.getItem("email");
-    if (jsonData.name == "" || jsonData.location == "" || jsonData.description == "") {
+    if (jsonData.name == "" || jsonData.location == "" || jsonData.description == "" || jsonData.rating == "") {
         document.getElementById("message").innerHTML = 'All fields are required!';
         document.getElementById("message").setAttribute("class", "text-danger");
         return;
@@ -23,6 +25,8 @@ function addResource() {
             document.getElementById("name").value = "";
             document.getElementById("location").value = "";
             document.getElementById("description").value = "";
+            document.getElementById("rating").value = "";
+
             window.location.href = 'home.html';
         }
         else {
@@ -31,4 +35,32 @@ function addResource() {
         }
     };
     request.send(JSON.stringify(jsonData));
+}
+function viewResources() {
+    var response = '';
+    var request = new XMLHttpRequest();
+    request.open('GET', '/view-resources', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = function () {
+        response = JSON.parse(request.responseText);
+        var html = ''
+        for (var i = 0; i < response.length; i++) {
+            html += '<tr>' +
+                '<td>' + (i + 1) + '</td>' +
+                '<td>' + response[i].name + '</td>' +
+                '<td>' + response[i].location + '</td>' +
+                '<td>' + response[i].description + '</td>' +
+                '<td>' + response[i].rating + '</td>' +
+                '<td>' + response[i].owner + '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-warning" onclick="editResource(\'' +
+                JSON.stringify(response[i]).replaceAll('\"', '&quot;') + '\')">Edit </button> ' +
+                '<button type="button" class="btn btn-danger" onclick="deleteResource(' +
+                response[i].id + ')"> Delete</button>' +
+                '</td>' +
+                '</tr>'
+        }
+        document.getElementById('tableContent').innerHTML = html;
+    };
+    request.send();
 }
