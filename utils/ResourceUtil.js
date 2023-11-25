@@ -15,6 +15,3 @@ async function addResource(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
-async function viewResources(req, res) {
-    try {
-
