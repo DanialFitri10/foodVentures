@@ -5,6 +5,12 @@ const PORT = process.env.PORT || 5050
 var startPage = "index.html";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+const { register, login } = require('./utils/UserUtil')
+app.post('/register', register);
+app.post('/login', login);
+
+
 app.use(express.static("./public"));
 
 const { register, login } = require('./utils/UserUtil')
