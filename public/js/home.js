@@ -4,7 +4,7 @@ function addResource() {
     jsonData.name = document.getElementById("name").value;
     jsonData.location = document.getElementById("location").value;
     jsonData.description = document.getElementById("description").value;
-    jsonData.description = document.getElementById("rating").value;
+    jsonData.rating = document.getElementById("rating").value;
 
     jsonData.owner = sessionStorage.getItem("email");
     if (jsonData.name == "" || jsonData.location == "" || jsonData.description == "" || jsonData.rating == "") {
@@ -30,12 +30,13 @@ function addResource() {
             window.location.href = 'home.html';
         }
         else {
-            document.getElementById("message").innerHTML = 'Unable to add resource!'; document.getElementById("message").setAttribute("class", "text-danger");
+            document.getElementById("message").innerHTML = 'Unable to add resource!'; document.getElementById("message").setAttribute("class", "text- danger");
             document.getElementById("message").setAttribute("class", "text-danger");
         }
     };
     request.send(JSON.stringify(jsonData));
 }
+
 function viewResources() {
     var response = '';
     var request = new XMLHttpRequest();
@@ -51,6 +52,7 @@ function viewResources() {
                 '<td>' + response[i].location + '</td>' +
                 '<td>' + response[i].description + '</td>' +
                 '<td>' + response[i].rating + '</td>' +
+
                 '<td>' + response[i].owner + '</td>' +
                 '<td>' +
                 '<button type="button" class="btn btn-warning" onclick="editResource(\'' +
