@@ -27,6 +27,27 @@
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <table class="table table-striped table-striped-custom">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Owner</th>
+                            <th>Ratings</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableContent">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel"
         aria-hidden="true">
@@ -38,31 +59,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="container mt-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <table class="table table-striped table-striped-custom">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Location</th>
-                                        <th>Description</th>
-                                        <th>Owner</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableContent">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="name">Resource Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter resource name">
+                            <label for="name">Food Store</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Food Place">
                         </div>
                         <div class="form-group">
                             <label for="location">Location</label>
@@ -73,8 +74,11 @@
                             <input type="text" class="form-control" id="description"
                                 placeholder="Enter short description">
                         </div>
+                        <div class="form-group">
+                            <label for="description">Ratings</label>
+                            <input type="text" class="form-control" id="rating" placeholder="Enter a rating">
+                        </div>
                         <p align="right" id="message" class=""></p>
-                        Page 23
                     </form>
                 </div>
                 <div class="modal-footer">
