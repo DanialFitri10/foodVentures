@@ -23,6 +23,7 @@ function addResource() {
             document.getElementById("name").value = "";
             document.getElementById("location").value = "";
             document.getElementById("description").value = "";
+            document.getElementById("rating").value = "";
             window.location.href = 'home.html';
         }
         else {
