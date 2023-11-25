@@ -1,5 +1,5 @@
 class Resource {
-    constructor(name, location, description, owner) {
+    constructor(name, location, description, owner, rating) {
         this.name = name;
         this.location = location;
         this.description = description;
