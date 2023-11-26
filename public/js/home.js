@@ -6,6 +6,8 @@ function addResource() {
     jsonData.description = document.getElementById("description").value;
     jsonData.rating = document.getElementById("rating").value;
 
+    jsonData.owner = sessionStorage.getItem("email");
+    if (jsonData.name == "" || jsonData.location == "" || jsonData.description == "" || jsonData.rating == "") {
         document.getElementById("message").innerHTML = 'All fields are required!';
         document.getElementById("message").setAttribute("class", "text-danger");
         return;
@@ -64,3 +66,4 @@ function viewResources() {
     };
     request.send();
 }
+
