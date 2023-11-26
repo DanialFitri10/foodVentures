@@ -66,3 +66,4 @@ function viewResources() {
     };
     request.send();
 }
+
