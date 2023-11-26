@@ -14,9 +14,11 @@ const { register, login } = require('./utils/UserUtil')
 app.post('/register', register);
 app.post('/login', login);
 
-const { addResource,viewResources } = require('./utils/ResourceUtil')
+const { addResource,viewResources, editResource, deleteResource } = require('./utils/ResourceUtil')
 app.post('/add-resource', addResource)
 app.get('/view-resources', viewResources);
+app.put('/edit-resource/:id', editResource);
+app.delete('/delete-resource/:id', deleteResource);
 
 app.use(express.static("./public"));
 
@@ -26,5 +28,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
-
-//Chamges here
