@@ -35,7 +35,7 @@ function addResource() {
         }
     };
     request.send(JSON.stringify(jsonData));
-}
+
 
 function viewResources() {
     var response = '';
