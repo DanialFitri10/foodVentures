@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/*.test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "chai": "^4.3.10",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
-    "nodemailer": "^6.9.7"
+    "mocha": "^10.2.0",
+    "nodemailer": "^6.9.7",
+    "nyc": "^15.1.0"
   }
 }
