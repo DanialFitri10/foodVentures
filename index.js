@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require("body-parser");
+const nodemailer = require('nodemailer');
 var app = express();
 const PORT = process.env.PORT || 5050
 var startPage = "index.html";
@@ -23,3 +24,36 @@ app.get('/', (req, res) => {
 app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
+
+
+/* part 2 
+// app.post('/resetPassword', (req, res) => {
+//     const { email } = req.body;
+
+//     // Your logic to handle sending the reset email using nodemailer
+//     // Replace this with your actual email sending logic
+//     const transporter = nodemailer.createTransport({
+//         service: 'gmail',
+//         auth: {
+//             user: 'your_email@gmail.com',
+//             pass: 'your_password'
+//         }
+//     });
+
+//     const mailOptions = {
+//         from: 'your_email@gmail.com',
+//         to: email,
+//         subject: 'Password Reset',
+//         text: 'Instructions to reset your password...'
+//     };
+
+//     transporter.sendMail(mailOptions, function(error, info){
+//         if (error) {
+//             console.log(error);
+//             res.status(500).send('Error sending reset email');
+//         } else {
+//             console.log('Email sent: ' + info.response);
+//             res.status(200).send('Reset email sent');
+//         }
+//     });
+// }); */
