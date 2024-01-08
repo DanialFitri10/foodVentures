@@ -107,3 +107,20 @@ function updateResource(id) {
     };
     request.send(JSON.stringify(jsonData));
 }
+
+function deleteResource(selectedId) {
+    var response = "";
+    var request = new XMLHttpRequest();
+    request.open("DELETE", "/delete-resource/" + selectedId, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = function () {
+        response = JSON.parse(request.responseText);
+        if (response.message == "Resource deleted successfully!") {
+            window.location.href = 'home.html';
+        }
+        else {
+            alert('Unable to delete resource!');
+        }
+    };
+    request.send();
+}
