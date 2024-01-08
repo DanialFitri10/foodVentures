@@ -43,6 +43,7 @@ async function editResource(req, res) {
         const name = req.body.name;
         const location = req.body.location;
         const description = req.body.description;
+        const rating = req.body.rating;
         const allResources = await readJSON('utils/resources.json');
         var modified = false;
         for (var i = 0; i < allResources.length; i++) {
@@ -51,6 +52,8 @@ async function editResource(req, res) {
                 allResources[i].name = name;
                 allResources[i].location = location;
                 allResources[i].description = description;
+                allResources[i].rating = rating;
+
                 modified = true;
             }
         }

@@ -35,7 +35,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editResourceModalLabel">Edit Resource</h5>
+                    <h5 class="modal-title" id="editResourceModal" onclick="editResource()">Edit Resource</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -56,12 +56,16 @@
                             <input type="text" class="form-control" id="editDescription"
                                 placeholder="Enter short description">
                         </div>
+                        <div class="form-group">
+                            <label for="description">Ratings</label>
+                            <input type="text" class="form-control" id="editRating" placeholder="Enter a rating">
+                        </div>
                         <p align="right" id="editMessage" class=""></p>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="updateButton" onclick="">Update Resource</button>
+                    <button type="button" class="btn btn-primary" id="updateButton" onclick="updateResource()">Update Resource</button>
                 </div>
             </div>
         </div>
@@ -77,8 +81,8 @@
                             <th>Name</th>
                             <th>Location</th>
                             <th>Description</th>
-                            <th>Ratings</th>
                             <th>Owner</th>
+                            <th>Rating</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -96,6 +100,7 @@
 
                 <div class="modal-body">
                     <form>
+                        <input type="text" id="hiddenID">
                         <div class="form-group">
                             <label for="name">Food Store</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter Food Place">
@@ -110,7 +115,11 @@
                                 placeholder="Enter short description">
                         </div>
                         <div class="form-group">
-                            <label for="description">Ratings</label>
+                            <label for="rating">Owner</label>
+                            <input type="text" class="form-control" id="owner" placeholder="owner">
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Ratings</label>
                             <input type="text" class="form-control" id="rating" placeholder="Enter a rating">
                         </div>
                         <p align="right" id="message" class=""></p>
