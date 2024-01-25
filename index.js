@@ -1,8 +1,9 @@
 var express = require('express');
-var bodyParser = require("body-parser");
+var http = require('http');
+var bodyParser = require('body-parser');
 var app = express();
 const PORT = process.env.PORT || 5050;
-var startPage = "index.html";
+var startPage = 'index.html';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,12 +21,17 @@ app.put('/edit-resource/:id', editResource);
 app.delete('/delete-resource/:id', deleteResource);
 
 // Static files
-app.use(express.static("./public"));
+app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + "/public/" + startPage);
+    res.sendFile(__dirname + '/public/' + startPage);
 });
 
-app.listen(PORT, function () {
+// Create an HTTP server using the express app
+const server = http.createServer(app);
+
+server.listen(PORT, function () {
     console.log(`App is running at: http://localhost:${PORT}`);
 });
+
+module.exports = { app, server };
