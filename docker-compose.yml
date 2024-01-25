@@ -1,0 +1,8 @@
+version: '3'
+services:
+  build-caras13:
+    build:
+      context: .
+      dockerfile: DockerfileCaras13
+    image: caras13/test-docker-img:v1
+    container_name: test-docker-container
