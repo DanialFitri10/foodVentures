@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "nyc": {
-    "include": [],
+    "include": [
+      "public/home.html",
+      "utils/ResourceUtil.js",
+      "utils/UserUtil.js"
+    ],
     "exclude": [],
     "reporter": [
       "text-summary"
@@ -17,8 +21,13 @@
     "statements": 80
   },
   "scripts": {
-    "test": "nyc mocha tests/test.js",
+    "test": "nyc mocha tests/*test.js --timeout 10000",
     "start": "node index.js"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "chai-http": "^4.4.0",
+    "nyc": "^15.1.0"
   },
   "author": "",
   "license": "ISC",
