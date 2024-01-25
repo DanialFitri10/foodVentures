@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "nyc": {
-    "include": [
-
-    ],
+    "include": [],
     "exclude": [],
     "reporter": [
       "text-summary"
@@ -18,9 +16,7 @@
     "functions": 80,
     "statements": 80
   },
-  "scripts": {
-
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -29,7 +25,6 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "mocha": "^10.2.0",
-    "nodemailer": "^6.9.7"
-
+    "nodemailer": "^6.9.8"
   }
 }
