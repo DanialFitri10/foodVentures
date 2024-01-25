@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "nyc": {
-    "include": [],
+    "include": [
+      "utils/UserUtil.js",
+      "utils/ResourceUtil.js",
+      "index.js"
+    ],
     "exclude": [],
     "reporter": [
       "text-summary"
