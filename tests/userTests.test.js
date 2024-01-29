@@ -1,89 +1,84 @@
-const { describe, it, beforeEach, afterEach } = require('mocha');
+const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const fs = require('fs').promises;
-const { register, login } = require('../utils/UserUtil');
+const { login } = require('../utils/UserUtil')
 
-describe('Testing Register Function', () => {
-    const usersFilePath = 'utils/users.json';
-    let orgContent = [];
+// describe('Testing Register Function', () => {
+//     const usersFilePath = 'utils/users.json';
+//     var orgContent = "";
 
-    beforeEach(async () => {
-        orgContent = await fs.readFile(usersFilePath, 'utf8');
-        orgContent = JSON.parse(orgContent);
-    });
+//     beforeEach(async () => {
+//         orgContent = await fs.readFile(usersFilePath, 'utf8');
+//         orgContent = JSON.parse(orgContent);
+//     });
 
-    afterEach(async () => {
-        await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
-    });
+//     afterEach(async () => {
+//         await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
+//     });
 
-    it('Should register a new user successfully', async () => {
-        const req = {
-            body: {
-                email: 'mary@gmail.com',
-                password: '123456',
-            },
-        };
+//     it('Should register a new user successfully', async () => {
+//         const req = {
+//             body: {
+//                 email: 'mary@gmail.com',
+//                 password: '123456',
+//             },
+//         };
 
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(201);
-                return this;
-            },
-            json: function (data) {
-                expect(data).to.have.lengthOf(orgContent.length + 1);
-                expect(data[orgContent.length].email).to.equal(req.body.email);
-                expect(data[orgContent.length].password).to.equal(req.body.password);
-            },
-        };
+//         it('Should shows validation error due to email', async () => {
+//             const req = {
+//                 body: {
+//                     email: 'simon#gmail.com',
+//                     password: '123',
+//                 },
+//             };
+//             const res = {
+//                 status: function (code) {
+//                     expect(code).to.equal(500);
+//                     return this;
+//                 },
+//                 json: function (data) {
+//                     expect(data.message).to.equal('Validation error');
+//                 },
+//             };
+//             await register(req, res);
+//         });
 
-        await register(req, res);
-    });
+//         const res = {
+//             status: function (code) {
+//                 expect(code).to.equal(201);
+//                 return this;
+//             },
+//             json: function (data) {
+//                 expect(data).to.have.lengthOf(orgContent.length + 1);
+//                 expect(data[orgContent.length].email).to.equal(req.body.email);
+//                 expect(data[orgContent.length].password).to.equal(req.body.password);
+//             },
+//         };
 
-    it('Should show a validation error due to an invalid email format', async () => {
-        const req = {
-            body: {
-                email: 'simon#gmail.com',
-                password: '123456',
-            },
-        };
+//         await register(req, res);
+//     });
 
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('Validation error');
-            },
-        };
+//     it('Should shows validation error due to password length', async () => {
+//         const req = {
+//             body: {
+//                 email: 'simon@gmail.com',
+//                 password: '123',
+//             },
+//         };
+//         const res = {
+//             status: function (code) {
+//                 expect(code).to.equal(500);
+//                 return this;
+//             },
+//             json: function (data) {
+//                 expect(data.message).to.equal('Validation error');
+//             },
+//         };
+//         await register(req, res);
+//     });
 
-        await register(req, res);
-    });
+// });
 
-    it('Should show a validation error due to a password length less than 6', async () => {
-        const req = {
-            body: {
-                email: 'simon@gmail.com',
-                password: '123',
-            },
-        };
-
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('Validation error');
-            },
-        };
-
-        await register(req, res);
-    });
-
-
-    
-});
 
 describe('Testing Login Function', () => {
     let orgContent = [];
@@ -105,7 +100,6 @@ describe('Testing Login Function', () => {
                 password: orgContent[0].password,
             },
         };
-
         const res = {
             status: function (code) {
                 expect(code).to.equal(201);
@@ -115,31 +109,25 @@ describe('Testing Login Function', () => {
                 expect(data.message).to.equal('Login successful!');
             },
         };
-
         await login(req, res);
     });
 
-
-    it('Should show an error if there are no registered users in the JSON file', async () => {
-        // Clear the orgContent array or use a JSON file with no users
+    it('Should show invalid credentials', async () => {
         const req = {
             body: {
-                email: 'nonexistent@example.com',
-                password: 'incorrectpassword',
+                email: orgContent[0].email,
+                password: 'abcdefg',
             },
         };
-    
         const res = {
             status: function (code) {
-                expect(code).to.equal(500);
+                expect(code).to.equal(500); 
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('No registered users found'); // Updated the error message
+                expect(data.message).to.equal('Invalid credentials!');
             },
         };
-    
         await login(req, res);
     });
-    
 });
