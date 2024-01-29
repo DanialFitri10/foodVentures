@@ -88,6 +88,25 @@ async function deleteResource(req, res) {
         return res.status(500).json({ message: error.message });
     }
 }
+
+async function addResourceAndGetId() {
+    const res = await chai.request(app)
+        .post('/add-resource')
+        .send({
+            name: 'Test Resource',
+            location: 'Test Location',
+            description: 'Test Description',
+            rating: 'Test Owner',
+            owner: 5
+        });
+
+    // Assuming the server responds with the added resource
+    const addedResource = res.body;
+
+    // Return the ID of the added resource
+    return addedResource.id;
+}
+
 module.exports = {
-    viewResources, addResource, editResource, deleteResource
+    viewResources, addResource, editResource, deleteResource, addResourceAndGetId
 }
