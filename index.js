@@ -3,6 +3,7 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var app = express();
 const PORT = process.env.PORT || 5050;
+const logger = require('./logger');
 var startPage = 'index.html';
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +24,9 @@ app.delete('/delete-resource/:id', deleteResource);
 // Static files
 app.use(express.static('./public'));
 
+const statusMonitor = require('express-status-monitor');
+app.use(statusMonitor());
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/' + startPage);
 });
@@ -32,6 +36,8 @@ const server = http.createServer(app);
 
 server.listen(PORT, function () {
     console.log(`App is running at: http://localhost:${PORT}`);
+    logger.info(`Demo Project at: ${PORT}!`);
+    logger.error(`Example or error log`)
 });
 
 module.exports = { app, server };
