@@ -21,7 +21,7 @@
     "statements": 80
   },
   "scripts": {
-    "test": "nyc mocha tests/userUITest.test.js --timeout 10000",
+    "test": "nyc mocha tests/*test.js --timeout 10000 --exit",
     "start": "node index.js",
     "clean": "npx nyc clean"
   },

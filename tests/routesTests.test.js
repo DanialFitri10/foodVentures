@@ -18,7 +18,6 @@ describe('Testing API Routes', () => {
 
     after(async () => {
         await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
-        server.close();
     });
 
     describe('User Registration', () => {
@@ -30,7 +29,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(201);
                     done();
-                    server.close();
                 });
         });
 
@@ -50,7 +48,7 @@ describe('Testing API Routes', () => {
         //                     expect(err).to.be.null;
         //                     expect(res).to.have.status(201);
         //                     done();
-        //                     server.close();
+        //                      
         //                 });
         //         });
         // });
@@ -71,7 +69,6 @@ describe('Testing API Routes', () => {
                             expect(err).to.be.null;
                             expect(res).to.have.status(201);
                             done();
-                            server.close();
                         });
                 });
         });
@@ -84,7 +81,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -96,7 +92,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -108,7 +103,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); // Assuming a 500 status for empty password
                     done();
-                    server.close();
                 });
         });
 
@@ -120,7 +114,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -132,7 +125,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -153,7 +145,6 @@ describe('Testing API Routes', () => {
                             expect(err).to.be.null;
                             expect(res).to.have.status(201);
                             done();
-                            server.close();
                         });
                 });
         });
@@ -170,7 +161,6 @@ describe('Testing API Routes', () => {
                     expect(res).to.have.status(201);
                     expect(res.body.message).to.equal('Login successful!');
                     done();
-                    server.close();
                 });
         });
 
@@ -182,7 +172,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); // Assuming a 500 status for missing email
                     done();
-                    server.close();
                 });
         });
 
@@ -194,7 +183,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -206,7 +194,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -218,7 +205,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -230,7 +216,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
     });
@@ -245,7 +230,6 @@ describe('Testing API Routes', () => {
                     expect(res).to.have.status(500);
                     expect(res.body.message).to.equal('Error occurred, unable to modify!');
                     done();
-                    server.close();
                 });
         });
 
@@ -257,7 +241,6 @@ describe('Testing API Routes', () => {
                     expect(res).to.have.status(500);
                     expect(res.body.message).to.equal('Error occurred, unable to delete!');
                     done();
-                    server.close();
                 });
         });
 
@@ -269,7 +252,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); // Assuming a 404 status for non-existent user
                     done();
-                    server.close();
                 });
         });
 
@@ -280,7 +262,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); // Assuming a 404 status for non-existent user
                     done();
-                    server.close();
                 });
         });
 
@@ -292,7 +273,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); //assuming a 500 status for invalid data
                     done();
-                    server.close();
                 });
         });
         it('Should update user information with valid data', (done) => {
@@ -304,7 +284,6 @@ describe('Testing API Routes', () => {
                     expect(res).to.have.status(500);
                     expect(res.body.message).to.equal('Error occurred, unable to modify!');
                     done();
-                    server.close();
                 });
         });
 
@@ -317,7 +296,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500);
                     done();
-                    server.close();
                 });
         });
 
@@ -328,7 +306,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(500); // Assuming 404 for invalid user ID
                     done();
-                    server.close();
                 });
         });
 
@@ -339,7 +316,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(404); // Assuming 400 for missing user ID
                     done();
-                    server.close();
                 });
         });
     });
@@ -353,7 +329,6 @@ describe('Testing API Routes', () => {
                     expect(res).to.have.status(201);
                     expect(res.body).to.be.an('array');
                     done();
-                    server.close();
                 });
         });
 
@@ -367,7 +342,7 @@ describe('Testing API Routes', () => {
         //         console.log(res.body); // Log the entire response body for inspection
 
         //         expect(res).to.have.status(404);        
-        //         server.close();
+        //          
         //     } catch (error) {
         //         // Handle errors if any
         //         console.error(error);
@@ -384,7 +359,7 @@ describe('Testing API Routes', () => {
         //             expect(err).to.be.null;
         //             expect(res).to.have.status(404);
         //             done(); 
-        //             server.close();
+        //              
         //         });
         // });
 
@@ -414,7 +389,7 @@ describe('Testing API Routes', () => {
                 expect(res).to.have.status(404);
 
                 // Close the server if needed
-                server.close();
+
             } catch (error) {
                 // Handle errors if any
                 console.error(error);
@@ -430,7 +405,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(404); // assuming 404 for non-existent resource
                     done();
-                    server.close();
                 });
         });
 
@@ -442,7 +416,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(201);
                     done();
-                    server.close();
                 });
         });
     });
@@ -451,12 +424,11 @@ describe('Testing API Routes', () => {
         it('Should add a new resource successfully', (done) => {
             chai.request(app)
                 .post('/add-resource')
-                .send({ name: 'New Resource', description: 'A new resource',owner: 'Test Owner', rating: 5 })
+                .send({ name: 'New Resource', description: 'A new resource', owner: 'Test Owner', rating: 5 })
                 .end((err, res) => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(400);
                     done();
-                    server.close();
                 });
         });
 
@@ -468,7 +440,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(400);
                     done();
-                    server.close();
                 });
         });
 
@@ -481,7 +452,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(400);
                     done();
-                    server.close();
                 });
         });
 
@@ -493,7 +463,6 @@ describe('Testing API Routes', () => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(400);
                     done();
-                    server.close();
                 });
         });
 
