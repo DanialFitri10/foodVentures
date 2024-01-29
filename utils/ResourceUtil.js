@@ -9,10 +9,22 @@ async function addResource(req, res) {
         const description = req.body.description;
         const rating = req.body.rating;
         const owner = req.body.owner;
+
+        // Validate the data
+        if (!name || !location || !description || !rating || !owner) {
+            return res.status(400).json({ message: 'Invalid data. Resource addition failed.' });
+        }
+
+        // Create a new resource
         const newResource = new Resource(name, location, description, rating, owner);
+
+        // Update the resources in the JSON file or database (assuming writeJSON works as expected)
         const updatedResources = await writeJSON(newResource, 'utils/resources.json');
+
+        // Return the successful response
         return res.status(201).json(updatedResources);
     } catch (error) {
+        // Handle unexpected errors
         return res.status(500).json({ message: error.message });
     }
 }
@@ -31,6 +43,7 @@ async function editResource(req, res) {
         const name = req.body.name;
         const location = req.body.location;
         const description = req.body.description;
+        const rating = req.body.rating;
         const allResources = await readJSON('utils/resources.json');
         var modified = false;
         for (var i = 0; i < allResources.length; i++) {
@@ -39,6 +52,8 @@ async function editResource(req, res) {
                 allResources[i].name = name;
                 allResources[i].location = location;
                 allResources[i].description = description;
+                allResources[i].rating = rating;
+
                 modified = true;
             }
         }
