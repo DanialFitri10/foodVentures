@@ -3,15 +3,38 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nyc": {
+    "include": [
+      "utils/UserUtil.js",
+      "utils/ResourceUtil.js",
+      "index.js"
+    ],
+    "exclude": [],
+    "reporter": [
+      "text-summary"
+    ],
+    "all": true,
+    "check-coverage": true,
+    "branches": 80,
+    "lines": 80,
+    "functions": 80,
+    "statements": 80
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc mocha tests/routesTests.test.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
     "express": "^4.18.2",
+    "express-status-monitor": "^1.3.4",
     "fs": "^0.0.1-security",
-    "nodemailer": "^6.9.7"
+    "mocha": "^10.2.0",
+    "nodemailer": "^6.9.8",
+    "winston": "^3.11.0"
   }
 }

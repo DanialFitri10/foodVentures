@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVOPS - Resource Management Web App</title>
+    <title>FoodVentures</title>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="js/home.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
 <body onload="viewResources()">
@@ -29,6 +29,48 @@
             </div>
         </div>
     </div>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editResourceModal" tabindex="-1" role="dialog" aria-labelledby="editResourceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editResourceModal" onclick="editResource()">Edit Resource</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Resource Name</label>
+                            <input type="text" class="form-control" id="editName" placeholder="Enter resource name">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="editLocation"
+                                placeholder="Enter resource location">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="editDescription"
+                                placeholder="Enter short description">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Ratings</label>
+                            <input type="text" class="form-control" id="editRating" placeholder="Enter a rating">
+                        </div>
+                        <p align="right" id="editMessage" class=""></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateButton" onclick="updateResource()">Update Resource</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -40,7 +82,7 @@
                             <th>Location</th>
                             <th>Description</th>
                             <th>Owner</th>
-                            <th>Ratings</th>
+                            <th>Rating</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -58,6 +100,7 @@
 
                 <div class="modal-body">
                     <form>
+                        <input type="text" id="hiddenID">
                         <div class="form-group">
                             <label for="name">Food Store</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter Food Place">
@@ -72,7 +115,11 @@
                                 placeholder="Enter short description">
                         </div>
                         <div class="form-group">
-                            <label for="description">Ratings</label>
+                            <label for="rating">Owner</label>
+                            <input type="text" class="form-control" id="owner" placeholder="owner">
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Ratings</label>
                             <input type="text" class="form-control" id="rating" placeholder="Enter a rating">
                         </div>
                         <p align="right" id="message" class=""></p>
