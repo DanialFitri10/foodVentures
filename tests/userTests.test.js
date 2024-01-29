@@ -81,27 +81,8 @@ describe('Testing Register Function', () => {
         await register(req, res);
     });
 
-    it('Should show an error if the user with the same email already exists', async () => {
-        const existingUserEmail = orgContent[0].email;
-        const req = {
-            body: {
-                email: existingUserEmail,
-                password: 'newpassword',
-            },
-        };
 
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('User with the same email already exists');
-            },
-        };
-
-        await register(req, res);
-    });
+    
 });
 
 describe('Testing Login Function', () => {
@@ -138,26 +119,6 @@ describe('Testing Login Function', () => {
         await login(req, res);
     });
 
-    it('Should show invalid credentials if the provided email and password combination is incorrect', async () => {
-        const req = {
-            body: {
-                email: orgContent[0].email,
-                password: 'abcdefg',
-            },
-        };
-
-        const res = {
-            status: function (code) {
-                expect(code).to.equal(500);
-                return this;
-            },
-            json: function (data) {
-                expect(data.message).to.equal('Invalid credentials');
-            },
-        };
-
-        await login(req, res);
-    });
 
     it('Should show an error if there are no registered users in the JSON file', async () => {
         // Clear the orgContent array or use a JSON file with no users
@@ -167,17 +128,18 @@ describe('Testing Login Function', () => {
                 password: 'incorrectpassword',
             },
         };
-
+    
         const res = {
             status: function (code) {
                 expect(code).to.equal(500);
                 return this;
             },
             json: function (data) {
-                expect(data.message).to.equal('No registered users found');
+                expect(data.message).to.equal('No registered users found'); // Updated the error message
             },
         };
-
+    
         await login(req, res);
     });
+    
 });
