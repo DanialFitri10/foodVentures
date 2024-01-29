@@ -34,8 +34,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, function () {
     console.log(`Demo project at: ${PORT}!`);
 });
-    res.sendFile(__dirname + '/public/' + startPage);
-});
 
 // Create an HTTP server using the express app
 const server = http.createServer(app);
