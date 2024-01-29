@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
+
 var app = express();
 const PORT = process.env.PORT || 5050;
 const logger = require('./logger');
@@ -28,6 +29,11 @@ const statusMonitor = require('express-status-monitor');
 app.use(statusMonitor());
 
 app.get('/', (req, res) => {
+    res.sendFile(__dirname + "/public/" + startPage);
+})
+app.listen(PORT, function () {
+    console.log(`Demo project at: ${PORT}!`);
+});
     res.sendFile(__dirname + '/public/' + startPage);
 });
 
