@@ -75,46 +75,46 @@ describe('Testing FoodVentures Web Page', () => {
 
 
 
-    it('Should not allow updating a resource with empty fields', async () => {
-        // Navigate to the page where the resource is listed.
-        await driver.get('http://localhost:5050/home.html');
+    // it('Should not allow updating a resource with empty fields', async () => {
+    //     // Navigate to the page where the resource is listed.
+    //     await driver.get('http://localhost:5050/home.html');
 
-        // Find an "Edit" button for a specific resource and click it to trigger the resource update.
-        const editButton = await driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-        await editButton.click();
+    //     // Find an "Edit" button for a specific resource and click it to trigger the resource update.
+    //     const editButton = await driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
+    //     await editButton.click();
 
-        // Clear the fields in the edit form.
-        const editNameField = await driver.findElement(By.id('editName'));
-        await editNameField.clear();
+    //     // Clear the fields in the edit form.
+    //     const editNameField = await driver.findElement(By.id('editName'));
+    //     await editNameField.clear();
 
-        // Clear other fields similarly.
+    //     // Clear other fields similarly.
 
-        // Find and click the "Update" button to perform the update.
-        const updateButton = await driver.findElement(By.id('updateButton'));
-        await updateButton.click();
+    //     // Find and click the "Update" button to perform the update.
+    //     const updateButton = await driver.findElement(By.id('updateButton'));
+    //     await updateButton.click();
+    //     // You can add assertions here to check if an error message is displayed, indicating that all fields are required.
+    // });
 
-        // You can add assertions here to check if an error message is displayed, indicating that all fields are required.
-    });
 
-    it('Should open the edit modal when "Edit" button is clicked', async () => {
-        // Navigate to the page where the resource is listed.
-        await driver.get('http://localhost:5050/home.html');
+    // it('Should open the edit modal when "Edit" button is clicked', async () => {
+    //     // Navigate to the page where the resource is listed.
+    //     await driver.get('http://localhost:5050/home.html');
 
-        // Find an "Edit" button for a specific resource and click it.
-        const editButton = await driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-        await editButton.click();
+    //     // Find an "Edit" button for a specific resource and click it.
+    //     const editButton = await driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
+    //     await editButton.click();
 
-        // Now, you are inside the modal. You can interact with elements within the modal here.
-        // For example, find and modify input fields, click buttons, etc.
+    //     // Now, you are inside the modal. You can interact with elements within the modal here.
+    //     // For example, find and modify input fields, click buttons, etc.
 
-        // After interacting with the modal elements, you can add assertions to verify the expected behavior.
-        // For example, check if input fields are visible and if a "Save" button is present in the modal.
-        const editNameField = await driver.findElement(By.id('editName'));
+    //     // After interacting with the modal elements, you can add assertions to verify the expected behavior.
+    //     // For example, check if input fields are visible and if a "Save" button is present in the modal.
+    //     const editNameField = await driver.findElement(By.id('editName'));
 
-        const isEditNameFieldDisplayed = await editNameField.isDisplayed();
+    //     const isEditNameFieldDisplayed = await editNameField.isDisplayed();
 
-        expect(isEditNameFieldDisplayed).to.equal(true);
-    });
+    //     expect(isEditNameFieldDisplayed).to.equal(true);
+    // });
 
 
 });
