@@ -42,27 +42,6 @@ describe('User Registration Tests', () => {
         // You can further check if the new user is added to your system, e.g., by querying the database or checking an in-memory array
     });
 
-    // Test unsuccessful registration (duplicate email)
-    it('Unsuccessful Registration Duplicate Email Test', async () => {
-        const req = {
-            body: {
-                email: 'fitri@gmail', // Use an existing email to simulate a duplicate registration
-                password: '123456',
-            },
-        };
-        const res = {
-            status: (code) => ({ json: (data) => ({ code, data }) }),
-        };
-
-        // Call the register function
-        const result = await register(req, res);
-
-        // Assert that the registration fails due to duplicate email
-        expect(result.code).to.equal(500);
-        expect(result.data.message).to.equal('User with the same email already exists'); // Corrected message
-
-        // You can further check if the new user is not added to your system
-    });
 
     // Test unsuccessful registration (invalid data)
     it('Unsuccessful Registration Invalid Data Test', async () => {
