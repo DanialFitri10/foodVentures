@@ -21,8 +21,11 @@
     "statements": 80
   },
   "scripts": {
-    "test": "nyc mocha tests/*test.js --timeout 10000",
-    "start": "node index.js"
+    "test": "nyc mocha tests/*test.js --timeout 10000 --exit",
+    "start": "node index.js",
+    "clean": "npx nyc clean",
+    "frontend-instrument": "nyc instrument .\\public\\js .\\public\\instrumented\\js && copy .\\public\\*.html .\\public\\instrumented\\ && copy .\\public\\images .\\public\\instrumented\\ && copy .\\public\\css .\\public\\instrumented\\ && del .\\coverage-frontend\\*.json",
+    "frontend-report": "nyc report --reporter html --reporter text -t coverage-frontend --report-dir coverage-frontend/summary"
   },
   "keywords": [],
   "devDependencies": {
