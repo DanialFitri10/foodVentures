@@ -7,8 +7,7 @@
     "include": [
       "utils/UserUtil.js",
       "utils/ResourceUtil.js",
-      "index.js",
-      "public/**/*.js"
+      "index.js"
     ],
     "exclude": [],
     "reporter": [
