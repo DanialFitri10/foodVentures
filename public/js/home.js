@@ -48,6 +48,7 @@ function addResource() {
         response = JSON.parse(request.responseText);
         console.log(response)
         if (response.message == undefined) {
+            alert("Resource added successfully")
             document.getElementById("message").innerHTML = 'Added Resource: ' +
                 jsonData.name + '!';
             document.getElementById("message").setAttribute("class", "text-success");
