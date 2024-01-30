@@ -48,6 +48,7 @@ function addResource() {
         response = JSON.parse(request.responseText);
         console.log(response)
         if (response.message == undefined) {
+            alert("Resource added successfully")
             document.getElementById("message").innerHTML = 'Added Resource: ' +
                 jsonData.name + '!';
             document.getElementById("message").setAttribute("class", "text-success");
@@ -130,6 +131,7 @@ function deleteResource(selectedId) {
         response = JSON.parse(request.responseText);
         if (response.message == "Resource deleted successfully!") {
             window.location.href = 'home.html';
+            alert("Resource added successfully")
         }
         else {
             alert('Unable to delete resource!');
