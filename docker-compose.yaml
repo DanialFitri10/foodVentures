@@ -4,5 +4,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: dannyfitri/rms-docker-danialv1:latest
+    image: dannyfitri/rms-docker-danialv1:v3
     container_name: rms-docker-container
