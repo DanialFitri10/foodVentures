@@ -68,11 +68,6 @@ describe('Testing FoodVentures Web Page', () => {
         const addResourceButton = await driver.findElement(By.xpath("//button[contains(text(),'Add Resource')]"));
         await addResourceButton.click();
 
-        // Fill out the form fields with valid data.
-
-        // Find and click the "Add" button to submit the resource addition form.
-
-        // Check if the newly added resource is displayed on the page.
     });
     it('Should add a resource when "Add Resource" button is clicked', async () => {
         await driver.get('http://localhost:5050/instrumented/home.html');
@@ -81,11 +76,6 @@ describe('Testing FoodVentures Web Page', () => {
         const addResourceButton = await driver.findElement(By.xpath("//button[contains(text(),'Add Resource')]"));
         await addResourceButton.click();
 
-        // Fill out the form fields with valid data.
-
-        // Find and click the "Add" button to submit the resource addition form.
-
-        // Check if the newly added resource is displayed on the page.
     });
     it('Should add a resource when "Add Resource" button is clicked', async () => {
         await driver.get('http://localhost:5050/instrumented/home.html');
@@ -93,12 +83,6 @@ describe('Testing FoodVentures Web Page', () => {
         // Find the "Add Resource" button and click it.
         const addResourceButton = await driver.findElement(By.xpath("//button[contains(text(),'Add Resource')]"));
         await addResourceButton.click();
-
-        // Fill out the form fields with valid data.
-
-        // Find and click the "Add" button to submit the resource addition form.
-
-        // Check if the newly added resource is displayed on the page.
     });
 
 
@@ -175,7 +159,7 @@ describe('Testing FoodVentures Web Page', () => {
         // Check if the resource is no longer listed.
         const deletedResourceElement = await driver.findElement(By.xpath("//div[contains(text(),'Deleted Resource')]"));
         const isDisplayed = await deletedResourceElement.isDisplayed();
-        expect(isDisplayed).to.equal(false); // Resource should no longer be displayed.
+        expect(isDisplayed).to.equal(false); 
     });
 
     it('Should not delete a resource if deletion is declined', async () => {
@@ -199,31 +183,53 @@ describe('Testing FoodVentures Web Page', () => {
 
     it('Should handle adding a resource with the same name', async () => {
         await driver.get('http://localhost:5050/instrumented/home.html');
-
+    
         // Find the "Add Resource" button and click it.
         const addResourceButton = await driver.findElement(By.xpath("//button[contains(text(),'Add Resource')]"));
         await addResourceButton.click();
-
+    
         // Fill out the form fields with data that matches an existing resource.
-
+        // This assumes you know the name of an existing resource.
+        const nameInput = await driver.findElement(By.id('name')); // Replace with actual ID
+        await nameInput.sendKeys('Existing Resource Name'); // Replace with the actual existing resource name
+        // Fill other required fields similarly...
+    
         // Find and click the "Add" button to submit the resource addition form.
-
+        const submitButton = await driver.findElement(By.id('submitButton')); // Replace with actual ID
+        await submitButton.click();
+    
         // Check if an error message is displayed indicating that a resource with the same name already exists.
+        const errorMessage = await driver.findElement(By.id('error-message')); // Replace with actual ID of the error message element
+        const isDisplayed = await errorMessage.isDisplayed();
+        expect(isDisplayed).to.equal(true);
+        expect(await errorMessage.getText()).to.include('resource with the same name already exists'); // Replace with the actual error message text
     });
+    
 
     it('Should handle adding a resource with a negative rating', async () => {
         await driver.get('http://localhost:5050/instrumented/home.html');
-
+    
         // Find the "Add Resource" button and click it.
         const addResourceButton = await driver.findElement(By.xpath("//button[contains(text(),'Add Resource')]"));
         await addResourceButton.click();
-
+    
         // Fill out the form fields with data, including a negative rating value.
-
+        await driver.findElement(By.id('name')).sendKeys('Test Resource');
+        await driver.findElement(By.id('location')).sendKeys('Test Location');
+        await driver.findElement(By.id('description')).sendKeys('Test Description');
+        await driver.findElement(By.id('rating')).sendKeys('-5'); // Entering a negative rating
+    
         // Find and click the "Add" button to submit the resource addition form.
-
+        const submitButton = await driver.findElement(By.id('submitButton')); // Replace with actual ID
+        await submitButton.click();
+    
         // Check if an error message is displayed indicating that the rating must be a positive number.
+        const errorMessage = await driver.findElement(By.id('error-message')); // Replace with actual ID of the error message element
+        const isDisplayed = await errorMessage.isDisplayed();
+        expect(isDisplayed).to.equal(true);
+        expect(await errorMessage.getText()).to.include('rating must be a positive number'); // Replace with the actual error message text
     });
+    
 
     // Add more test cases as needed to cover other scenarios or validations for resource addition.
 
@@ -243,6 +249,8 @@ describe('Testing FoodVentures Web Page', () => {
 
         // You may also need to refresh the page or navigate back to the resource list page to validate the deletion.
     });
+
+    
     it('Should delete a resource when "Delete" button is clicked', async () => {
         // Store the initial count of resources before deletion.
 

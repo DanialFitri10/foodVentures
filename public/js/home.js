@@ -131,6 +131,7 @@ function deleteResource(selectedId) {
         response = JSON.parse(request.responseText);
         if (response.message == "Resource deleted successfully!") {
             window.location.href = 'home.html';
+            alert("Resource added successfully")
         }
         else {
             alert('Unable to delete resource!');
