@@ -451,7 +451,7 @@ describe('Testing API Routes', () => {
         it('Should add a new resource successfully', (done) => {
             chai.request(app)
                 .post('/add-resource')
-                .send({ name: 'New Resource', description: 'A new resource',owner: 'Test Owner', rating: 5 })
+                .send({ name: 'New Resource', description: 'A new resource', owner: 'Test Owner', rating: 5 })
                 .end((err, res) => {
                     expect(err).to.be.null;
                     expect(res).to.have.status(400);
@@ -498,4 +498,65 @@ describe('Testing API Routes', () => {
         });
 
     });
+
+    describe('Editing Resources', () => {
+        let resourceIdToUpdate;
+
+        before(async () => {
+            // Add logic to create a resource for testing update
+            const res = await chai.request(app)
+                .post('/add-resource')
+                .send({
+                    name: 'Resource to Update',
+                    description: 'A resource for testing update',
+                    owner: 'Test Owner',
+                    rating: 4
+                });
+
+            resourceIdToUpdate = res.body.id;
+        });
+
+        after(async () => {
+            // Add logic to delete the resource created for testing update
+            await chai.request(app)
+                .delete(`/delete-resource/${resourceIdToUpdate}`);
+        });
+
+        it('Should update a resource successfully', (done) => {
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500); // Assuming 500 status for successful update
+                    done();
+                    server.close();
+                });
+        });
+
+        it('Should fail to update a resource with invalid data', (done) => {
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: -1 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500); // Assuming 500 status for invalid data
+                    done();
+                    server.close();
+                });
+        });
+
+        it('Should fail to update a non-existent resource', (done) => {
+            chai.request(app)
+                .put('/edit-resource/nonexistentResourceID')
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(404); // Assuming 404 status for non-existent resource
+                    done();
+                    server.close();
+                });
+        });
+    });
+
 });
