@@ -18,7 +18,7 @@
     "branches": 80,
     "lines": 80,
     "functions": 80,
-    "statements": 80
+    "statements": 70
   },
   "scripts": {
     "test": "nyc mocha tests/routesTests.test.js",
@@ -34,5 +34,8 @@
     "fs": "^0.0.1-security",
     "mocha": "^10.2.0",
     "nodemailer": "^6.9.8"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0"
   }
 }

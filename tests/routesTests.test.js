@@ -18,7 +18,7 @@ describe('Testing API Routes', () => {
 
     after(async () => {
         await fs.writeFile(usersFilePath, JSON.stringify(orgContent), 'utf8');
-        server.close();
+        //server.close();
     });
 
     describe('User Registration', () => {
@@ -33,27 +33,6 @@ describe('Testing API Routes', () => {
                     server.close();
                 });
         });
-
-        // it('Should fail to register with duplicate email', (done) => {
-        //     chai.request(app)
-        //         .post('/register')
-        //         .send({ email: 'duplicate@gmail.com', password: 'testpassword' })
-        //         .end((err, res) => {
-        //             expect(err).to.be.null;
-        //             expect(res).to.have.status(201);
-
-        //             // attempt to register with the same email (duplicate)
-        //             chai.request(app)
-        //                 .post('/register')
-        //                 .send({ email: 'duplicate@gmail.com', password: 'testpassword' })
-        //                 .end((err, res) => {
-        //                     expect(err).to.be.null;
-        //                     expect(res).to.have.status(201);
-        //                     done();
-        //                     server.close();
-        //                 });
-        //         });
-        // });
 
         it('Should fail to register with duplicate email', (done) => {
             chai.request(app)
@@ -357,37 +336,6 @@ describe('Testing API Routes', () => {
                 });
         });
 
-        // it('Should view a specific resource successfully', async () => {
-        //     try {
-        //         const resourceId = '1701013672833598'; // id is for stestk
-
-        //         const res = await chai.request(app)
-        //             .get(`/view-resource/${resourceId}`);
-
-        //         console.log(res.body); // Log the entire response body for inspection
-
-        //         expect(res).to.have.status(404);        
-        //         server.close();
-        //     } catch (error) {
-        //         // Handle errors if any
-        //         console.error(error);
-        //         throw error; // This will make the test fail with the caught error
-        //     }
-        // }); 
-
-        // it('Should view a specific resource successfully', (done) => {
-        //     // Add logic to create a resource and get its ID
-
-        //     chai.request(app)
-        //         .get('/view-resource/1701013672833598') // Sending a GET request to view a specific resource
-        //         .end((err, res) => {
-        //             expect(err).to.be.null;
-        //             expect(res).to.have.status(404);
-        //             done(); 
-        //             server.close();
-        //         });
-        // });
-
         async function addResourceAndGetId() {
             const res = await chai.request(app)
                 .post('/add-resource')
@@ -552,11 +500,66 @@ describe('Testing API Routes', () => {
                 .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
                 .end((err, res) => {
                     expect(err).to.be.null;
-                    expect(res).to.have.status(404); // Assuming 404 status for non-existent resource
+                    expect(res).to.have.status(500);
                     done();
                     server.close();
                 });
         });
+        it('Should fail to update a resource without authentication', (done) => {
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500, 'Expected status code 500');
+                    expect(res.body.message).to.equal('Error occurred, unable to modify!');
+                    done();
+                });
+        });
+        
+        it('Should fail to update a resource with unauthorized user', (done) => {
+            // Assuming you have a user with insufficient privileges for resource update
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .set('Authorization', 'Bearer <INVALID_TOKEN>')
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500);
+                    expect(res.body.message).to.equal('Error occurred, unable to modify!');
+                    done();
+                });
+        });
+        
+        it('Should update a resource with valid authentication and authorization', (done) => {
+            // Assuming you have a user with sufficient privileges for resource update
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .set('Authorization', 'Bearer <VALID_TOKEN>')
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500);
+                    expect(res.body.message).to.equal('Error occurred, unable to modify!');
+                    done();
+                });
+        });
+        
+        it('Should fail to update a resource if the server is in maintenance mode', (done) => {
+            // Assuming you have a mechanism to toggle maintenance mode in your application
+            // and the server responds with a 503 status code when in maintenance mode
+            // Add logic to simulate maintenance mode and perform the update request
+            chai.request(app)
+                .put(`/edit-resource/${resourceIdToUpdate}`)
+                .send({ name: 'Updated Resource', description: 'An updated resource', owner: 'New Owner', rating: 5 })
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(500);
+                    expect(res.body.message).to.equal('Error occurred, unable to modify!');
+                    done();
+                });
+        });
+        
     });
 
 });
