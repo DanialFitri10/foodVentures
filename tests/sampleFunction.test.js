@@ -5,6 +5,25 @@ const { addResource } = require('../utils/ResourceUtil');
 const { register } = require('../utils/UserUtil');
 const { User } = require('../models/User');
 const { Builder, By, Key, until } = require('selenium-webdriver');
+const { app } = require('../index');
+const chrome = require('selenium-webdriver/chrome');
+const exp = require('constants');
+const chromeOptions = new chrome.Options();
+chromeOptions.addArguments('--headless');
+
+const driver = new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
+var server;
+
+var counter = 0;
+
+before(async function () {
+    server = await new Promise((resolve) => {
+        server = app.listen(0, 'localhost', () => {
+            resolve(server);
+        });
+    })
+});
+
 
 describe('User Registration Tests', () => {
     const testUsers = [
@@ -107,72 +126,102 @@ describe('Add Resource Tests', () => {
         // You can further check if the new resource is not added to your system
     });
     describe('Testing login ui Web Page', () => {
-        var driver;
-    
-        beforeEach(async () => {
-            driver = await new Builder().forBrowser('chrome').build();
+        // var driver;
+
+        // beforeEach(async () => {
+        //     driver = await new Builder().forBrowser('chrome').build();
+        // });
+
+        // afterEach(async () => {
+        //     await driver.quit();
+        // });
+
+
+        it('Should have a visible email input field', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const emailField = await driver.findElement(By.id("email"));
+            const isDisplayed = await emailField.isDisplayed();
+            expect(isDisplayed).to.equal(true);
         });
-    
-        afterEach(async () => {
-            await driver.quit();
+
+        it('Should have a visible password input field', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const passwordField = await driver.findElement(By.id("password"));
+            const isDisplayed = await passwordField.isDisplayed();
+            expect(isDisplayed).to.equal(true);
+        });
+        it('Should have a visible "Login" button', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const loginButton = await driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
+            const isDisplayed = await loginButton.isDisplayed();
+            expect(isDisplayed).to.equal(true);
+        });
+        it('Should have a visible "Forget Password" button', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const forgetPasswordButton = await driver.findElement(By.xpath("//button[contains(text(),'Forget Password')]"));
+            const isDisplayed = await forgetPasswordButton.isDisplayed();
+            expect(isDisplayed).to.equal(true);
+        });
+        it('Should have a visible "New user? Register here" link', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const registerLink = await driver.findElement(By.linkText("New user? Register here"));
+            const isDisplayed = await registerLink.isDisplayed();
+            expect(isDisplayed).to.equal(true);
         });
 
+        it('Should navigate to the registration page when "New user? Register here" link is clicked', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
+            const registerLink = await driver.findElement(By.linkText("New user? Register here"));
+            await registerLink.click();
+            const currentUrl = await driver.getCurrentUrl();
+            expect(currentUrl).to.include("register.html");
+        });
 
-    it('Should have a visible email input field', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const emailField = await driver.findElement(By.id("email"));
-        const isDisplayed = await emailField.isDisplayed();
-        expect(isDisplayed).to.equal(true);
-    });
+        it('Should display an error message for invalid login credentials', async () => {
+            const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
+            await driver.get(baseUrl);
 
-    it('Should have a visible password input field', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const passwordField = await driver.findElement(By.id("password"));
-        const isDisplayed = await passwordField.isDisplayed();
-        expect(isDisplayed).to.equal(true);
-    });
-    it('Should have a visible "Login" button', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const loginButton = await driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
-        const isDisplayed = await loginButton.isDisplayed();
-        expect(isDisplayed).to.equal(true);
-    });
-    it('Should have a visible "Forget Password" button', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const forgetPasswordButton = await driver.findElement(By.xpath("//button[contains(text(),'Forget Password')]"));
-        const isDisplayed = await forgetPasswordButton.isDisplayed();
-        expect(isDisplayed).to.equal(true);
-    });
-    it('Should have a visible "New user? Register here" link', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const registerLink = await driver.findElement(By.linkText("New user? Register here"));
-        const isDisplayed = await registerLink.isDisplayed();
-        expect(isDisplayed).to.equal(true);
-    });
 
-    it('Should navigate to the registration page when "New user? Register here" link is clicked', async () => {
-        await driver.get('http://localhost:5050/index.html');
-        const registerLink = await driver.findElement(By.linkText("New user? Register here"));
-        await registerLink.click();
-        const currentUrl = await driver.getCurrentUrl();
-        expect(currentUrl).to.include("register.html");
-    });
+            // Enter invalid login credentials (you may need to adjust based on your validation logic).
+            await driver.findElement(By.id("email")).sendKeys("invalid@example.com");
+            await driver.findElement(By.id("password")).sendKeys("invalidPassword");
 
-    it('Should display an error message for invalid login credentials', async () => {
-        await driver.get('http://localhost:5050/index.html');
+            // Click the login button.
+            const loginButton = await driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
+            await loginButton.click();
 
-        // Enter invalid login credentials (you may need to adjust based on your validation logic).
-        await driver.findElement(By.id("email")).sendKeys("invalid@example.com");
-        await driver.findElement(By.id("password")).sendKeys("invalidPassword");
+            // Check for the presence of the error message.
+            const errorMessage = await driver.findElement(By.id("error"));
+            const isDisplayed = await errorMessage.isDisplayed();
+            expect(isDisplayed).to.equal(true);
+        });
 
-        // Click the login button.
-        const loginButton = await driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
-        await loginButton.click();
-
-        // Check for the presence of the error message.
-        const errorMessage = await driver.findElement(By.id("error"));
-        const isDisplayed = await errorMessage.isDisplayed();
-        expect(isDisplayed).to.equal(true);
     });
 });
+afterEach(async function () {
+    await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
+        if (coverageData) {
+            // Save coverage data to a file
+            await fs.writeFile('coverage-frontend/coverage' + counter++ + '.json',
+                JSON.stringify(coverageData), (err) => {
+                    if (err) {
+                        console.error('Error writing coverage data:', err);
+                    } else {
+                        console.log('Coverage data written to coverage.json');
+                    }
+                });
+        }
+    });
+});
+
+after(async function () {
+    await driver.quit();
+    await server.close();
+
 });
