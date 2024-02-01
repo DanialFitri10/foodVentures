@@ -516,7 +516,7 @@ describe('Testing API Routes', () => {
                     done();
                 });
         });
-        
+
         it('Should fail to update a resource with unauthorized user', (done) => {
             // Assuming you have a user with insufficient privileges for resource update
             chai.request(app)
@@ -530,7 +530,7 @@ describe('Testing API Routes', () => {
                     done();
                 });
         });
-        
+
         it('Should update a resource with valid authentication and authorization', (done) => {
             // Assuming you have a user with sufficient privileges for resource update
             chai.request(app)
@@ -544,7 +544,7 @@ describe('Testing API Routes', () => {
                     done();
                 });
         });
-        
+
         it('Should fail to update a resource if the server is in maintenance mode', (done) => {
             // Assuming you have a mechanism to toggle maintenance mode in your application
             // and the server responds with a 503 status code when in maintenance mode
@@ -559,7 +559,7 @@ describe('Testing API Routes', () => {
                     done();
                 });
         });
-        
+
     });
 
 });
