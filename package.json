@@ -22,7 +22,10 @@
   },
   "scripts": {
     "test": "nyc mocha tests/routesTests.test.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "clean": "npx nyc clean",
+    "frontend-instrument": "nyc instrument .\\public\\js .\\public\\instrumented\\js && copy .\\public\\.html .\\public\\instrumented\\ && copy .\\public\\images .\\public\\instrumented\\ && copy .\\public\\css .\\public\\instrumented\\ ",
+    "frontend-report": "nyc report --reporter html --reporter text -t coverage-frontend --report-dir coverage-frontend/summary"
   },
   "author": "",
   "license": "ISC",
