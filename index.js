@@ -11,6 +11,9 @@ app.use(bodyParser.json());
 const { register, login } = require('./utils/UserUtil');
 const { addResource, viewResources, editResource, deleteResource } = require('./utils/ResourceUtil');
 
+const statusMonitor = require('express-status-monitor');
+app.use(statusMonitor());
+
 // Register routes
 app.post('/register', register);
 app.post('/login', login);
