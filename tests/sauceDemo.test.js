@@ -5,9 +5,9 @@ const { expect } = require('chai');
 const fs = require('fs').promises;
 
 const path = require('path');
-const edge = require('selenium-webdriver/edge');
-const edgeOptions = new edge.Options();
-const driver = new Builder().forBrowser('MicrosoftEdge').setEdgeOptions(edgeOptions).build();
+const chrome = require('selenium-webdriver/chrome');
+const chromeOptions = new chrome.Options();
+const driver = new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
 var counter = 0;
 var server;
 
